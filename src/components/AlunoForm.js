@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
 import styled from 'styled-components';
 
@@ -65,24 +65,39 @@ const AlunoForm = ({ onSearch }) => {
     });
     const [perfis, setPerfis] = useState([]);
     const navigate = useNavigate();
+    const { id } = useParams();
 
     useEffect(() => {
         const fetchPerfis = async () => {
             try {
                 const response = await axiosInstance.get('/perfis');
-                console.log('Perfis recebidos:', response.data);
-                if (Array.isArray(response.data)) {
-                    setPerfis(response.data);
-                } else {
-                    console.error('A resposta da API não é um array:', response.data);
-                }
+                setPerfis(response.data);
             } catch (error) {
                 console.error('Erro ao buscar perfis:', error);
             }
         };
 
+        const fetchAluno = async () => {
+            if (id) {
+                try {
+                    const response = await axiosInstance.get(`/alunos/${id}`);
+                    const alunoData = response.data;
+                    setAluno({
+                        id: alunoData.id,
+                        nome: alunoData.nome,
+                        email: alunoData.email,
+                        cpf: alunoData.cpf,
+                        perfilId: alunoData.perfil.id
+                    });
+                } catch (error) {
+                    console.error('Erro ao buscar aluno:', error);
+                }
+            }
+        };
+
         fetchPerfis();
-    }, []);
+        fetchAluno();
+    }, [id]);
 
     const handleChange = (event) => {
         const { name, value } = event.target;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom'; // Importar Link para navegação
+import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import AlunoForm from './components/AlunoForm';
 import AlunoTable from './components/AlunoTable';
@@ -29,22 +29,18 @@ const App = () => {
                             {/* Rota para listar alunos com a tabela e o formulário de busca */}
                             <Route path="/alunos" element={
                                 <>
-                                    <h1 className="my-4">Lista de Alunos</h1>
+                                    {/* <h1 className="my-4">Lista de Alunos</h1> */}
                                     {/* Botão para navegar para a página de novo aluno */}
-                                    <Link to="/alunos/novo">
+                                    {/* <Link to="/alunos/novo">
                                         <Button variant="primary" className="mb-3">Novo Aluno</Button>
-                                    </Link>
-                                    {/* <AlunoForm onSearch={handleSearch} /> */}
+                                    </Link> */}
                                     <AlunoTable searchParams={searchParams} />
                                 </>
                             } />
                             {/* Rota para criar um novo aluno */}
-                            <Route path="/alunos/novo" element={
-                                <>
-                                    {/* <h1 className="my-4">Novo Aluno</h1> */}
-                                    <AlunoForm />
-                                </>
-                            } />
+                            <Route path="/alunos/novo" element={<AlunoForm />} />
+                            {/* Rota para editar um aluno existente */}
+                            <Route path="/alunos/:id/editar" element={<AlunoForm />} />
                             {/* Rota para detalhes do aluno */}
                             <Route path="/alunos/:id" element={<AlunoDetail />} />
                         </Routes>
