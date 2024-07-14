@@ -7,35 +7,47 @@ import styled from 'styled-components';
 const Container = styled.div`
     margin: 20px;
     padding: 20px;
+    background-color: #e7f0fd;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const Header = styled.div`
+    margin-bottom: 20px;
+`;
+
+const Title = styled.h2`
+    color: #004080;
+    font-size: 24px;
 `;
 
 const FormGroup = styled.div`
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 `;
 
 const Label = styled.label`
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-weight: bold;
+    color: #004080;
 `;
 
 const Input = styled.input`
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #b3d1ff;
     border-radius: 4px;
     box-sizing: border-box;
+    background-color: #f0f8ff;
 `;
 
 const Select = styled.select`
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #b3d1ff;
     border-radius: 4px;
     box-sizing: border-box;
+    background-color: #f0f8ff;
 `;
 
 const Button = styled.button`
@@ -46,12 +58,12 @@ const Button = styled.button`
     font-size: 14px;
     font-weight: bold;
     color: #fff;
-    background-color: ${props => props.primary ? '#28a745' : '#6c757d'};
+    background-color: ${props => props.primary ? '#004080' : '#6c757d'};
     margin-right: 10px;
     transition: background-color 0.3s;
 
     &:hover {
-        background-color: ${props => props.primary ? '#218838' : '#5a6268'};
+        background-color: ${props => props.primary ? '#0056b3' : '#5a6268'};
     }
 `;
 
@@ -131,9 +143,10 @@ const AlunoForm = ({ onSearch }) => {
 
     return (
         <Container>
-            <h1>{aluno.id ? 'Editar Aluno' : 'Novo Aluno'}</h1>
+            <Header>
+                <Title>{aluno.id ? 'Editar Aluno' : 'Novo Aluno'}</Title>
+            </Header>
             <form onSubmit={handleSubmit}>
-                <input type="hidden" name="id" value={aluno.id} />
                 <FormGroup>
                     <Label htmlFor="nome">Nome:</Label>
                     <Input

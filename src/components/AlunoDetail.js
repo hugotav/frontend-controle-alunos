@@ -1,14 +1,62 @@
-// src/components/AlunoDetail.js
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button } from 'react-bootstrap';
+import styled from 'styled-components';
+
+// Estilos
+const Container = styled.div`
+    margin: 20px;
+    padding: 20px;
+    background-color: #e7f0fd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const Title = styled.h1`
+    color: #004080;
+    font-size: 24px;
+    margin-bottom: 20px;
+`;
+
+const DetailGroup = styled.div`
+    margin-bottom: 15px;
+`;
+
+const Label = styled.label`
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #004080;
+`;
+
+const Value = styled.span`
+    display: block;
+    padding: 10px;
+    border: 1px solid #b3d1ff;
+    border-radius: 4px;
+    background-color: #f0f8ff;
+`;
+
+const BackButton = styled.button`
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: #5a6268;
+    }
+`;
 
 const AlunoDetail = () => {
-    const { id } = useParams(); // Pega o ID da URL
+    const { id } = useParams();
     const [aluno, setAluno] = useState(null);
-    const navigate = useNavigate(); // Hook para navegação
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAluno = async () => {
@@ -24,7 +72,7 @@ const AlunoDetail = () => {
     }, [id]);
 
     const handleBack = () => {
-        navigate('/alunos'); // Navega de volta para a lista de alunos
+        navigate('/alunos');
     };
 
     if (!aluno) {
@@ -32,26 +80,26 @@ const AlunoDetail = () => {
     }
 
     return (
-        <div className="container mt-4">
-            <h1 className="my-4">Detalhes do Aluno</h1>
-            <div>
-                <label>Nome:</label>
-                <span>{aluno.nome}</span>
-            </div>
-            <div>
-                <label>Email:</label>
-                <span>{aluno.email}</span>
-            </div>
-            <div>
-                <label>CPF:</label>
-                <span>{aluno.cpf}</span>
-            </div>
-            <div>
-                <label>Perfil:</label>
-                <span>{aluno.perfil.tipo}</span>
-            </div>
-            <Button onClick={handleBack} variant="secondary" className="mt-3">Voltar</Button>
-        </div>
+        <Container>
+            <Title>Detalhes do Aluno</Title>
+            <DetailGroup>
+                <Label>Nome:</Label>
+                <Value>{aluno.nome}</Value>
+            </DetailGroup>
+            <DetailGroup>
+                <Label>Email:</Label>
+                <Value>{aluno.email}</Value>
+            </DetailGroup>
+            <DetailGroup>
+                <Label>CPF:</Label>
+                <Value>{aluno.cpf}</Value>
+            </DetailGroup>
+            <DetailGroup>
+                <Label>Perfil:</Label>
+                <Value>{aluno.perfil.tipo}</Value>
+            </DetailGroup>
+            <BackButton onClick={handleBack}>Voltar</BackButton>
+        </Container>
     );
 };
 
